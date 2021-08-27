@@ -4,11 +4,6 @@
 yarn
 ```
 
-or
-
-```bash
-npm install
-```
 
 ## Starting emulator
 

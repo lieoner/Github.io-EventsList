@@ -1,16 +1,8 @@
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import React, { useCallback, useEffect, useState } from 'react';
-import {
-    ActivityIndicator,
-    FlatList,
-    ListRenderItem,
-    SafeAreaView,
-    StyleSheet,
-    Text,
-} from 'react-native';
+import React, { useCallback, useState } from 'react';
+import { SafeAreaView, StyleSheet } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { EventRow } from '../library/components/EventRow';
 import { EventsList } from '../library/components/EventsList';
 import { MainStackParamList } from '../navigation/config/MainStackParams';
 import { EventType } from '../res/eventType';

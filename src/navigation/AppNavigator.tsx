@@ -1,10 +1,10 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { MainStackParamList } from './config/MainStackParams';
+import React from 'react';
+import { StyleSheet } from 'react-native';
 import { EventScreen } from '../screens/EventScreen';
 import { MainScreen } from '../screens/MainScreen';
+import { MainStackParamList } from './config/MainStackParams';
 
 const Stack = createStackNavigator<MainStackParamList>();
 

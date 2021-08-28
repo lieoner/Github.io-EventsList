@@ -30,7 +30,7 @@ export const MainScreen: React.FC<{}> = () => {
             dispatch(setLoading(true));
             setRecentlyUpdated(true);
             dispatch(updateEvents());
-            wait(5000).then(() => {
+            wait(15000).then(() => {
                 setRecentlyUpdated(false);
                 console.log('call');
             });

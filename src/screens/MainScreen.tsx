@@ -1,6 +1,6 @@
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import { SafeAreaView, StyleSheet } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { MemoizedEventList } from '../library/components/EventsList';
@@ -15,25 +15,23 @@ export const MainScreen: React.FC<{}> = () => {
     const navigation = useNavigation<mainScreenProp>();
 
     const [recentlyUpdated, setRecentlyUpdated] = useState(false);
-
+    const recentlyUpdatedTimeout: React.MutableRefObject<NodeJS.Timeout | undefined> =
+        useRef<NodeJS.Timeout>();
     const loading = useSelector((state: RootState) => state.main.loading);
     const events: EventType[] = useSelector((state: RootState) => state.main.events);
 
     const dispatch = useDispatch();
 
-    const wait = (timeout: number) => {
-        return new Promise((resolve) => setTimeout(resolve, timeout));
-    };
-
     const update = useCallback(() => {
         if (!recentlyUpdated) {
+            clearTimeout(recentlyUpdatedTimeout.current as NodeJS.Timeout);
             dispatch(setLoading(true));
             setRecentlyUpdated(true);
             dispatch(updateEvents());
-            wait(15000).then(() => {
+            recentlyUpdatedTimeout.current = setTimeout(() => {
                 setRecentlyUpdated(false);
                 console.log('call');
-            });
+            }, 15000);
         }
     }, [recentlyUpdated]);
 
@@ -45,6 +43,8 @@ export const MainScreen: React.FC<{}> = () => {
             }, 60000);
             return () => {
                 clearInterval(updateTick);
+                clearTimeout(recentlyUpdatedTimeout.current as NodeJS.Timeout);
+                console.log('clear');
             };
         }, [])
     );

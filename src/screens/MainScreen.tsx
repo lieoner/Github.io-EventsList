@@ -3,7 +3,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import React, { useCallback, useState } from 'react';
 import { SafeAreaView, StyleSheet } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { EventsList } from '../library/components/EventsList';
+import { MemoizedEventList } from '../library/components/EventsList';
 import { MainStackParamList } from '../navigation/config/MainStackParams';
 import { EventType } from '../res/eventType';
 import { RootState } from '../store';
@@ -56,7 +56,7 @@ export const MainScreen: React.FC<{}> = () => {
 
     return (
         <SafeAreaView>
-            <EventsList
+            <MemoizedEventList
                 events={events}
                 loading={loading}
                 onRefresh={update}

@@ -10,27 +10,21 @@ export interface Props {
     onPressItem(item: EventType): void;
 }
 
-export class EventsList extends PureComponent<Props> {
-    render() {
-        return (
-            <FlatList<EventType>
-                keyExtractor={(item) => item.id}
-                renderItem={({ item }) => (
-                    <EventRow
-                        item={item}
-                        onPress={() => {
-                            this.props.onPressItem(item);
-                        }}
-                    />
-                )}
-                data={this.props.events}
-                refreshControl={
-                    <RefreshControl
-                        refreshing={this.props.loading}
-                        onRefresh={this.props.onRefresh}
-                    />
-                }
-            />
-        );
-    }
-}
+const EventsList: React.FC<Props> = ({ events, loading, onRefresh, onPressItem }) => {
+    return (
+        <FlatList<EventType>
+            keyExtractor={(item) => item.id}
+            renderItem={({ item }) => (
+                <EventRow
+                    item={item}
+                    onPress={() => {
+                        onPressItem(item);
+                    }}
+                />
+            )}
+            data={events}
+            refreshControl={<RefreshControl refreshing={loading} onRefresh={onRefresh} />}
+        />
+    );
+};
+export const MemoizedEventList = React.memo<Props>(EventsList);

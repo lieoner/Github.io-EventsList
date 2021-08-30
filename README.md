@@ -1,3 +1,6 @@
+## About 
+A ReactNative app with TypeScript template. This app fetches and displays a list of events from github.io api.
+
 ## Install
 
 ```bash
